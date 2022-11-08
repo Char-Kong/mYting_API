@@ -1,0 +1,26 @@
+{
+  "name": "myting_api",
+  "version": "1.0.0",
+  "description": "Back-end",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js",
+    "dev": "npx nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SW-Engineering-Team-13/mYting_API.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SW-Engineering-Team-13/mYting_API/issues"
+  },
+  "homepage": "https://github.com/SW-Engineering-Team-13/mYting_API#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mysql": "^2.18.1",
+    "nodemon": "^2.0.20"
+  }
+}
