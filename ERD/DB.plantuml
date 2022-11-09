@@ -1,0 +1,42 @@
+@startuml
+
+hide circle
+
+' avoid problems with angled crows feet
+skinparam linetype ortho
+
+entity "USER" as user {
+  *USER_ID: Int
+  --
+  IS_ADMIN: Bool
+  NAME: String
+  PASSWORD: String
+  NICKNAME: String
+  MBTI: String
+  SEX: Bool
+  MAJOR: String
+  GRADE: Int
+  STUDENT_NUMBER: Int
+}
+
+entity "MESSAGE" as msg {
+  *MSG_ID: Int
+  --
+  USER_ID: Int <<FK>>
+  RECEIVER: String
+  CONTENTS: String
+  SEND_DATE: Datetime
+}
+
+entity "MATCH" as match {
+  *MATCH_ID: Int
+  --
+  USER_ID: Int <<FK>>
+  MBTI: String <<FK>>
+  SEX: Bool <<FK>>
+}
+
+user |o..o{ msg
+user |o..|| match
+
+@enduml
