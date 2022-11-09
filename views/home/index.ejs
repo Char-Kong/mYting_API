@@ -10,9 +10,13 @@
 </head>
 
 <body>
-    <input type="text" placeholder="아이디"><br>
-    <input type="text" placeholder="비밀번호"><br>
-    <button>로그인</button>
+    <form method="post" action="../../routes/home/index">
+        <input type="text" name="id" placeholder="아이디"><br>
+        <input type="text" name="pw" placeholder="비밀번호"><br>
+        <button>로그인</button>
+    </form>
+    id: <%= id %>
+    pw: <%= pw %>
 </body>
 
 </html>
