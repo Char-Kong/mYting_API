@@ -63,6 +63,28 @@ class Study {
       console.log(err);
     }
   }
+
+  async Enter_Study() {
+    const body = this.body;
+
+    try {
+      const response = await StudyStorage.AddMember(body);
+      return response;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  async Exit_Study() {
+    const body = this.body;
+
+    try {
+      const response = await StudyStorage.DeleteMember(body);
+      return response;
+    } catch (err) {
+      console.log(err);
+    }
+  }
 }
 
 module.exports = Study;

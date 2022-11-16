@@ -6,15 +6,15 @@ class StudyStorage {
   // 스터디생성
   static async CreateStudy(data) {
     const query =
-      "INSERT INTO Study(StudyID, CreatorUID, Studyname, Starttime, Endtime, MBTI) VALUES(?, ?, ?, ?, ?, ?);";
+      "INSERT INTO Study(CreatorUID, Studyname, Starttime, Endtime, MBTI, Subject) VALUES(?, ?, ?, ?, ?, ?);";
     const MBTI = this.Search_User_MBTI(data);
     const param = [
-      data.studyid,
       data.uid,
       data.studyname,
       data.starttime,
       data.endtime,
       MBTI,
+      data.subject,
     ];
 
     db.query(query, param, (err) => {
@@ -151,9 +151,19 @@ class StudyStorage {
       "INSERT INTO StudyMember(StudyID, ParticipantUID, Creator) VALUES(?, ?, ?);";
     const param = [data.studyid, data.uid, data.creator];
 
-    db.query(query, param, (err, result) => {
+    db.query(query, param, (err) => {
       if (err) reject(err);
-      resolve({ success: true });
+      resolve({ success: true, msg: "스터디에 가입되었습니다" });
+    });
+  }
+
+  static async DeleteMember(data) {
+    const query = "DELETE FROM StudyMember WHERE ParticipantUID = ?;";
+    const param = [data.uid];
+
+    db.query(query, param, (err) => {
+      if (err) reject(err);
+      resolve({ success: true, msg: "스터디에서 탈퇴되었습니다." });
     });
   }
 }
