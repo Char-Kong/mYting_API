@@ -16,7 +16,7 @@ class StudyMember {
     Study-ID varchar(255) not null -- Foreign Key(Study)
     Participant-UID varchar(255) not null -- Foreign Key(UserProfile)
     --
-    Creator tinyint(1) not null
+    Creator tinyint(1) default 0
 }
 
 class IdealMBTI {

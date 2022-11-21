@@ -17,9 +17,13 @@ class StudyStorage {
       data.subject,
     ];
 
-    db.query(query, param, (err) => {
+    db.query(query, param, (err, results) => {
       if (err) reject(err);
-      resolve({ success: true, msg: "스터디가 개설되었습니다." });
+      else {
+        const body = { studyid: results.member_no, uid: data.uid };
+        this.AddCreator(body);
+        resolve({ success: true, msg: "스터디가 개설되었습니다." });
+      }
     });
   }
 
@@ -34,7 +38,7 @@ class StudyStorage {
   }
 
   // 스터디검색(현재 이름만 검색 가능)
-  static async SearchStudy(data) {
+  static async SearchStudyByName(data) {
     const query = "SELECT * FROM Study WHERE Studyname = ?;";
     const param = [data.studyname];
 
@@ -148,8 +152,8 @@ class StudyStorage {
 
   static async AddMember(data) {
     const query =
-      "INSERT INTO StudyMember(StudyID, ParticipantUID, Creator) VALUES(?, ?, ?);";
-    const param = [data.studyid, data.uid, data.creator];
+      "INSERT INTO StudyMember(StudyID, ParticipantUID) VALUES(?, ?);";
+    const param = [data.studyid, data.uid];
 
     db.query(query, param, (err) => {
       if (err) reject(err);
@@ -164,6 +168,17 @@ class StudyStorage {
     db.query(query, param, (err) => {
       if (err) reject(err);
       resolve({ success: true, msg: "스터디에서 탈퇴되었습니다." });
+    });
+  }
+
+  static AddCreator(data) {
+    const query =
+      "INSERT INTO StudyMember(StudyID, ParticipantUID, Creator) VALUES(?, ?, ?)";
+    const param = [data.studyid, data.uid, 1];
+
+    db.query(query, param, (err) => {
+      if (err) reject(err);
+      resolve({ success: true });
     });
   }
 }
