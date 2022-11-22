@@ -1,5 +1,6 @@
 "use strict";
 
+const { query } = require("../config/db");
 const db = require("../config/db");
 
 class StudyStorage {
@@ -37,14 +38,39 @@ class StudyStorage {
     });
   }
 
-  // 스터디검색(현재 이름만 검색 가능)
-  static async SearchStudyByName(data) {
+  // 스터디검색(스터디 이름)
+  static async SearchStudyByStudyName(data) {
     const query = "SELECT * FROM Study WHERE Studyname = ?;";
     const param = [data.studyname];
 
     db.query(query, param, (err, results) => {
       if (err) reject(err);
       resolve(this.SortStudy(results));
+    });
+  }
+
+  // 스터디검색(개설자 이름)
+  static async SearchStudyByCreatorName(data) {
+    //1. 해당 이름을 가진 유저의 uid 조회
+    const uid = this.Lookup_User_Byname(data);
+
+    //2. 해당 uid를 가진 스터디 검색
+    const query = "SELECT * FROM Study WHERE CreatorID = ?;";
+    const param = [uid];
+
+    db.query(query, param, (err, results) => {
+      if (err) reject(err);
+      resolve(results);
+    });
+  }
+
+  static Lookup_User_Byname(data) {
+    const query = "SELECT uid FROM User WHERE name = ?;";
+    const param = [data.name];
+
+    db.query(query, param, (err, results) => {
+      if (err) reject(err);
+      resolve(results);
     });
   }
 
@@ -126,7 +152,7 @@ class StudyStorage {
       acc.push(this.Lookup_Member_Info(cur));
     }, []);
 
-    return result;
+    return acc;
   }
 
   static Lookup_uid(data) {
@@ -182,5 +208,7 @@ class StudyStorage {
     });
   }
 }
+
+//추가할 기능 - 개설자 이름으로 검색하기, 스터디 주제로 검색하기
 
 module.exports = StudyStorage;
