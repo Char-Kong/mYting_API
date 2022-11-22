@@ -42,11 +42,22 @@ class Study {
     }
   }
 
-  async SearchStudy() {
+  async SearchStudy_ByStudyName() {
     const body = this.body;
 
     try {
-      const response = await StudyStorage.SearchStudy(body);
+      const response = await StudyStorage.SearchStudyByStudyName(body);
+      return response;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  async SearchStudy_ByCreatorName() {
+    const body = this.body;
+
+    try {
+      const response = await StudyStorage.SearchStudyByCreatorName(body);
       return response;
     } catch (err) {
       console.log(err);
@@ -80,6 +91,17 @@ class Study {
 
     try {
       const response = await StudyStorage.DeleteMember(body);
+      return response;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  async Member_Info() {
+    const body = this.body;
+
+    try {
+      const response = await StudyStorage.LookupMember(body);
       return response;
     } catch (err) {
       console.log(err);

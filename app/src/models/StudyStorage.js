@@ -34,7 +34,7 @@ class StudyStorage {
 
     db.query(query, (err, results) => {
       if (err) reject(err);
-      resolve(this.SortStudy(results));
+      resolve(this.SortStudy(data, results));
     });
   }
 
@@ -45,7 +45,7 @@ class StudyStorage {
 
     db.query(query, param, (err, results) => {
       if (err) reject(err);
-      resolve(this.SortStudy(results));
+      resolve(this.SortStudy(data, results));
     });
   }
 
@@ -60,7 +60,7 @@ class StudyStorage {
 
     db.query(query, param, (err, results) => {
       if (err) reject(err);
-      resolve(results);
+      resolve(SortStudy(data, results));
     });
   }
 
@@ -70,7 +70,7 @@ class StudyStorage {
 
     db.query(query, param, (err, results) => {
       if (err) reject(err);
-      resolve(results);
+      resolve(SortStudy(results));
     });
   }
 
@@ -176,6 +176,7 @@ class StudyStorage {
     });
   }
 
+  //멤버 추가
   static async AddMember(data) {
     const query =
       "INSERT INTO StudyMember(StudyID, ParticipantUID) VALUES(?, ?);";
@@ -187,6 +188,7 @@ class StudyStorage {
     });
   }
 
+  //멤버 삭제
   static async DeleteMember(data) {
     const query = "DELETE FROM StudyMember WHERE ParticipantUID = ?;";
     const param = [data.uid];
@@ -197,6 +199,7 @@ class StudyStorage {
     });
   }
 
+  //개설자로 추가
   static AddCreator(data) {
     const query =
       "INSERT INTO StudyMember(StudyID, ParticipantUID, Creator) VALUES(?, ?, ?)";
@@ -209,6 +212,6 @@ class StudyStorage {
   }
 }
 
-//추가할 기능 - 개설자 이름으로 검색하기, 스터디 주제로 검색하기
+//추가할 기능 - 스터디 주제로 검색하기
 
 module.exports = StudyStorage;
