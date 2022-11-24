@@ -64,6 +64,17 @@ class Study {
     }
   }
 
+  async SearchStudyBySubject() {
+    const body = this.body;
+
+    try {
+      const response = await StudyStorage.SearchStudyBySubject(body);
+      return response;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   async InitStudy() {
     const body = this.body;
 
@@ -102,6 +113,18 @@ class Study {
 
     try {
       const response = await StudyStorage.LookupMember(body);
+      return response;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  async PlaceBooking() {
+    const body = this.body;
+
+    try {
+      const response = await StudyStorage.AddPlace(body);
+
       return response;
     } catch (err) {
       console.log(err);

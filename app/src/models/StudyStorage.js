@@ -64,6 +64,16 @@ class StudyStorage {
     });
   }
 
+  static async SearchStudyBySubject(data) {
+    const query = "SELECT * FROM Study WHERE Subject = ?;";
+    const param = [data.subject];
+
+    db.query(query, param, (err, results) => {
+      if (err) reject(err);
+      resolve(this.SortStudy(data, results));
+    });
+  }
+
   static Lookup_User_Byname(data) {
     const query = "SELECT uid FROM User WHERE name = ?;";
     const param = [data.name];
@@ -210,8 +220,16 @@ class StudyStorage {
       resolve({ success: true });
     });
   }
-}
 
-//추가할 기능 - 스터디 주제로 검색하기
+  static async AddPlace(data) {
+    const query = "UPDATE Study SET Place = ? WHERE StudyID = ?;";
+    const param = [data.place, data.studyid];
+
+    db.query(query, param, (err) => {
+      if (err) reject(err);
+      resolve({ success: true });
+    });
+  }
+}
 
 module.exports = StudyStorage;

@@ -8,7 +8,7 @@ class Study {
     Endtime varchar(255)
     MBTI varchar(255) check (MBTI IN('ENTJ', 'ENTP', 'INTJ', 'INTP', 'ESTJ', 'ESFJ', 'ISTJ', 'ISFJ', 'ENFJ', 'ENFP', 'INFJ', 'INFP', 'ESTP', 'ESFP', 'ISTP', 'ISFP'))
     Subject varchar(255)
-    StudyInfo5 varchar(255)
+    Place varchar(255)
     StudyInfo6 varchar(255)
 }
 
