@@ -64,16 +64,6 @@ class StudyStorage {
     });
   }
 
-  static async SearchStudyBySubject(data) {
-    const query = "SELECT * FROM Study WHERE Subject = ?;";
-    const param = [data.subject];
-
-    db.query(query, param, (err, results) => {
-      if (err) reject(err);
-      resolve(this.SortStudy(data, results));
-    });
-  }
-
   static Lookup_User_Byname(data) {
     const query = "SELECT uid FROM User WHERE name = ?;";
     const param = [data.name];
@@ -81,6 +71,17 @@ class StudyStorage {
     db.query(query, param, (err, results) => {
       if (err) reject(err);
       resolve(SortStudy(results));
+    });
+  }
+
+  // 스터디검색 (주제)
+  static async SearchStudyBySubject(data) {
+    const query = "SELECT * FROM Study WHERE Subject = ?;";
+    const param = [data.subject];
+
+    db.query(query, param, (err, results) => {
+      if (err) reject(err);
+      resolve(this.SortStudy(data, results));
     });
   }
 
@@ -221,6 +222,7 @@ class StudyStorage {
     });
   }
 
+  //대관 장소 추가
   static async AddPlace(data) {
     const query = "UPDATE Study SET Place = ? WHERE StudyID = ?;";
     const param = [data.place, data.studyid];
