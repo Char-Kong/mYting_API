@@ -12,8 +12,6 @@ class Study {
 
     try {
       const response = await StudyStorage.CreateStudy(body);
-      body.creator = 1;
-
       return response;
     } catch (err) {
       console.error(err);
